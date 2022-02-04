@@ -1,0 +1,13 @@
+.corner {
+  margin: 5px;
+  padding: 10px;
+  border: 2px dashed gray;
+  border-radius: 5px;
+}
+
+td {
+  border: 1px solid gray;
+  width: 100px;
+  text-align: center;
+}
+
