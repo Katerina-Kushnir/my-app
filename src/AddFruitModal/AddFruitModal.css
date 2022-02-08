@@ -1,0 +1,23 @@
+.modalForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: auto;
+    background-color: rgb(240, 241, 239);
+    padding-left: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.modalForm button {
+    margin: 20px 5px;
+    width: 80px;
+    height: 30px;
+    position: relative;
+    left: -5px;
+    background-color:rgb(114, 201, 92);
+    border: 2px solid rgb(96, 165, 76);
+    border-radius: 5px;
+}
