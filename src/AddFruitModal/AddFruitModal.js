@@ -13,7 +13,7 @@ export class AddFruitModal extends Component {
         super(props);
         this.state = {
             name: props.fruit?.name || '',
-            color: props.fruit?.color || '',
+            category: props.fruit?.category || '',
             price: props.fruit?.price || '',
         }
     }
@@ -28,8 +28,8 @@ export class AddFruitModal extends Component {
                     }}>
                     <p>Name:</p>
                     <input value = { this.state.name } onChange = {( event ) => this.setState ({ name: event.target.value })}/>
-                    <p>Color:</p>
-                    <input value = { this.state.color } onChange = {( event ) => this.setState ({ color: event.target.value })}/>
+                    <p>Category:</p>
+                    <input value = { this.state.category } onChange = {( event ) => this.setState ({ category: event.target.value })}/>
                     <p>Price:</p>
                     <input value = { this.state.price } onChange = {( event ) => this.setState ({ price: event.target.value })}/>
                     <button>{ this.props.fruit?.id ? 'Edit' : 'Add' }</button>

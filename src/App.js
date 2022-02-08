@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.onAddItem = ({name, color, price})=> {
+    this.onAddItem = ({name, category, price})=> {
       this.setState({
         isAddModalVisible: false,
         fruits: [
@@ -15,7 +15,7 @@ class App extends Component {
           {
             id: uuidv4 (),
             name,
-            color,
+            category,
             price,
           }
         ]
@@ -37,7 +37,7 @@ class App extends Component {
 
     this.onDeleteFruit = (id) => {
       this.setState ({
-        fruits: this.state.fruits.filter((fruit) => fruit.id != id)
+        fruits: this.state.fruits.filter((fruit) => fruit.id !== id)
       })
     }
 
@@ -62,38 +62,56 @@ class App extends Component {
         {
           id: uuidv4 (),
           name: 'APPLE',
-          color: 'green',
-          price: '20uah',
+          category: 'fruit',
+          price: '20',
         },
         {
           id: uuidv4 (),
           name: 'BANANA',
-          color: 'yellow',
-          price: '30uah',
+          category: 'fruit',
+          price: '30',
         },
         {
           id: uuidv4 (),
           name: 'LIME',
-          color: 'green',
-          price: '90uah',
+          category: 'fruit',
+          price: '90',
         },
         {
           id: uuidv4 (),
           name: 'STRAWBERRY',
-          color: 'red',
-          price: '120uah',
+          category: 'fruit',
+          price: '120',
+        },
+        {
+          id: uuidv4 (),
+          name: 'TOMATO',
+          category: 'vegetable',
+          price: '70',
         },
         {
           id: uuidv4 (),
           name: 'ORANGE',
-          color: 'orange',
-          price: '45uah',
+          category: 'fruit',
+          price: '45',
         },
         {
           id: uuidv4 (),
           name: 'KIWI',
-          color: 'green',
-          price: '60uah',
+          category: 'fruit',
+          price: '60',
+        },
+        {
+          id: uuidv4 (),
+          name: 'CUCUMBER',
+          category: 'vegetable',
+          price: '80',
+        },
+        {
+          id: uuidv4 (),
+          name: 'PEPPER',
+          category: 'vegetable',
+          price: '120',
         }
       ]
     }
