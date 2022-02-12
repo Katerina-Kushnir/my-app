@@ -12,7 +12,7 @@ export class Fruit extends Component {
                     <button onClick={this.props.onDelete} className='delete'>X</button>
                 </td>
                 <td className='table_button'>
-                    <button onClick={this.props.onEdit} className='edit'>Edit</button>
+                    <button onClick={this.props.onEdit}>Edit</button>
                 </td>
             </tr>
         )

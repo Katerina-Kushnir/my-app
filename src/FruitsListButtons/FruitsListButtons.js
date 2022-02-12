@@ -13,6 +13,4 @@ export class FruitsListButtons extends Component {
     }
 }
 
-FruitsListButtons.propTypes = {
-    onAddClicked: PropTypes.func,
-}
+
