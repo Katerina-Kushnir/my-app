@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-export class FruitsListButtons extends Component {
+/*export class FruitsListButtons extends Component {
     render () {
         return (
             <div>
@@ -11,6 +10,14 @@ export class FruitsListButtons extends Component {
             </div> 
         )
     }
+}*/
+
+export const FruitsListButtons = (props) => {
+    return (
+        <div>
+            <button 
+                onClick= { props.onAddClicked } > Add Fruit 
+            </button>
+        </div> 
+    )
 }
-
-

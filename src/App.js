@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { AddFruitModal } from './AddFruitModal/AddFruitModal';
 import { FruitsList } from './FruitsList/FruitsList';
 import { FruitsListButtons } from './FruitsListButtons/FruitsListButtons';
@@ -61,7 +61,7 @@ const fruits = [
   }
 ]
 
-class App extends Component {
+/*class App extends Component {
   constructor(props) {
     super(props);
 
@@ -181,4 +181,102 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App;*/
+
+
+export const App = () => {
+
+  const [fruitsItem, setFruits] = useState(fruits);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [fruitsVM, setFruitsVM] = useState(null);
+  const [editingFruit, setEditingFruit] = useState(null);
+  const [isFiltered, setIsFiltered] = useState(true);
+
+ 
+  const onAddItem = ({name, category, price})=> {
+    setIsAddModalVisible (false);
+    setFruits( [...fruitsItem,
+      {
+        id: uuidv4 (),
+        name,
+        category,
+        price,
+      }
+    ])
+  }
+
+  const onApplyEditFruit = (fruit) => {
+    setIsAddModalVisible (false);
+    setEditingFruit (null);
+    setFruits (
+      fruits.map((stateFruit) => {
+        if (stateFruit.id === fruit.id) {
+          return fruit;
+        }
+        return stateFruit;
+      })
+    )
+  }
+
+  const onDeleteFruit = (id) => {
+    setFruits ( fruitsItem.filter((fruit) => fruit.id !== id) )
+  }
+
+  const onEditFruit = (id) => {
+    const fruit = fruitsItem.find((fruit) => fruit.id === id)
+      setIsAddModalVisible (true);
+      setEditingFruit(fruit);
+  }
+
+  const onModalClose = () => {
+    setIsAddModalVisible(false);
+    setEditingFruit(null);
+  }
+
+  const onSort = (value) => {
+    setFruitsVM( [...fruits].sort((a, b) => a[value] > b[value] ? 1 : -1) );
+  }
+
+  const onDropSort = (value) => {
+    setFruitsVM(null);
+  }
+
+  const onFilterList = (value) => {
+    setIsFiltered(true);
+    setFruitsVM( [...fruits].filter((item) => item.name.toLowerCase().includes(value.toLocaleString())));
+  }
+
+  const onSelectList = (value) => {
+    setIsFiltered(true);
+    setFruitsVM( [...fruits].filter((item) => item.category.toLowerCase().includes(value.toLocaleString())));
+
+    if (value == 'All') {
+      setFruitsVM(null);
+    }
+  }
+
+
+  return (
+    <div>
+      <FruitsList 
+        fruits = {fruitsVM || fruitsItem} 
+        onDeleteFruit = {onDeleteFruit}
+        onEditruit = {onEditFruit}
+        onSort = {onSort}
+        onDropSort = {onDropSort}
+        onFilterList = {onFilterList}
+        onSelectList = {onSelectList}
+      />
+      <FruitsListButtons onAddClicked = {() => setIsAddModalVisible(true)} />
+      {isAddModalVisible ? 
+        <AddFruitModal 
+          onAddItemClick = { onAddItem }
+          onCloseAddFruitModalClick = { onModalClose }
+          onEditItemClick = { onApplyEditFruit }
+          fruit = { editingFruit }
+        /> 
+      : null}
+    </div>
+  )
+}
+

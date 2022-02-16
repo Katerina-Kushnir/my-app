@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import './AddFruitModal.css';
 
+/*
 export class AddFruitModal extends Component {
     static propTypes = {
         onAddClicked: PropTypes.func,
@@ -38,4 +38,34 @@ export class AddFruitModal extends Component {
             </div>
         )
     }
+}
+*/
+
+
+
+export const AddFruitModal = (props) => {
+    const [name, setName] = useState({
+        name: props.fruit?.name || '',
+        category: props.fruit?.category || '',
+        price: props.fruit?.price || '',
+    });
+
+    return(
+        <div className='modalForm'>
+            <form onSubmit = {() => {
+                props.fruit?.id ?
+                props.onEditItemClick({...name, id: props.fruit.id}) :
+                props.onAddItemClick(name)
+                }}>
+                <p>Name:</p>
+                <input value = { name.name } onChange = {( event ) => setName ( { name: event.target.value } )}/>
+                <p>Category:</p>
+                <input value = { name.category } onChange = {( event ) => setName ( { category: event.target.value } )}/>
+                <p>Price:</p>
+                <input value = { name.price } onChange = {( event ) => setName ( { price: event.target.value } )}/>
+                <button>{ props.fruit?.id ? 'Edit' : 'Add' }</button>
+                <button onClick={props.onCloseAddFruitModalClick}>Close</button>
+            </form>
+        </div>
+    )
 }
