@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AddFruitModal } from './AddFruitModal/AddFruitModal';
 import { FruitsList } from './FruitsList/FruitsList';
 import { FruitsListButtons } from './FruitsListButtons/FruitsListButtons';
@@ -193,7 +193,7 @@ export const App = () => {
   const [isFiltered, setIsFiltered] = useState(true);
 
  
-  const onAddItem = ({name, category, price})=> {
+  const onAddItem = useCallback (({name, category, price})=> {
     setIsAddModalVisible (false);
     setFruits( [...fruitsItem,
       {
@@ -203,9 +203,9 @@ export const App = () => {
         price,
       }
     ])
-  }
+  }, [setIsAddModalVisible, setFruits, fruitsItem])
 
-  const onApplyEditFruit = (fruit) => {
+  const onApplyEditFruit = useCallback((fruit) => {
     setIsAddModalVisible (false);
     setEditingFruit (null);
     setFruits (
@@ -216,7 +216,7 @@ export const App = () => {
         return stateFruit;
       })
     )
-  }
+  }, [setIsAddModalVisible, setEditingFruit, setFruits])
 
   const onDeleteFruit = (id) => {
     setFruits ( fruitsItem.filter((fruit) => fruit.id !== id) )
@@ -228,23 +228,23 @@ export const App = () => {
       setEditingFruit(fruit);
   }
 
-  const onModalClose = () => {
+  const onModalClose = useCallback(() => {
     setIsAddModalVisible(false);
     setEditingFruit(null);
-  }
+  }, [setIsAddModalVisible, setEditingFruit])
 
-  const onSort = (value) => {
+  const onSort = useCallback((value) => {
     setFruitsVM( [...fruits].sort((a, b) => a[value] > b[value] ? 1 : -1) );
-  }
+  }, [setFruitsVM])
 
-  const onDropSort = (value) => {
+  const onDropSort = useCallback(() => {
     setFruitsVM(null);
-  }
+  }, [setFruitsVM])
 
-  const onFilterList = (value) => {
+  const onFilterList = useCallback((value) => {
     setIsFiltered(true);
     setFruitsVM( [...fruits].filter((item) => item.name.toLowerCase().includes(value.toLocaleString())));
-  }
+  }, [setIsFiltered, setFruitsVM, ])
 
   const onSelectList = (value) => {
     setIsFiltered(true);
@@ -270,6 +270,7 @@ export const App = () => {
       <FruitsListButtons onAddClicked = {() => setIsAddModalVisible(true)} />
       {isAddModalVisible ? 
         <AddFruitModal 
+          onAddItem  = { onAddItem }
           onAddItemClick = { onAddItem }
           onCloseAddFruitModalClick = { onModalClose }
           onEditItemClick = { onApplyEditFruit }
@@ -279,4 +280,3 @@ export const App = () => {
     </div>
   )
 }
-
