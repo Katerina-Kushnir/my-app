@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AddFruitModal } from './AddFruitModal/AddFruitModal';
 import { FruitsList } from './FruitsList/FruitsList';
 import { FruitsListButtons } from './FruitsListButtons/FruitsListButtons';
@@ -189,7 +189,7 @@ export const App = () => {
   const [fruitsItem, setFruits] = useState(fruits);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [fruitsVM, setFruitsVM] = useState(null);
-  const [editingFruit, setEditingFruit] = useState(null);
+  const [editingFruit, setEditingFruit] = useState(fruits);
   const [isFiltered, setIsFiltered] = useState(true);
 
  
@@ -218,15 +218,15 @@ export const App = () => {
     )
   }, [setIsAddModalVisible, setEditingFruit, setFruits])
 
-  const onDeleteFruit = (id) => {
+  const onDeleteFruit = useCallback((id) => {
     setFruits ( fruitsItem.filter((fruit) => fruit.id !== id) )
-  }
+  }, [fruitsItem])
 
-  const onEditFruit = (id) => {
+  const onEditFruit = useCallback((id) => {
     const fruit = fruitsItem.find((fruit) => fruit.id === id)
       setIsAddModalVisible (true);
       setEditingFruit(fruit);
-  }
+  }, [fruitsItem, setIsAddModalVisible, setEditingFruit])
 
   const onModalClose = useCallback(() => {
     setIsAddModalVisible(false);
@@ -246,14 +246,14 @@ export const App = () => {
     setFruitsVM( [...fruits].filter((item) => item.name.toLowerCase().includes(value.toLocaleString())));
   }, [setIsFiltered, setFruitsVM, ])
 
-  const onSelectList = (value) => {
+  const onSelectList = useCallback((value) => {
     setIsFiltered(true);
     setFruitsVM( [...fruits].filter((item) => item.category.toLowerCase().includes(value.toLocaleString())));
 
     if (value == 'All') {
       setFruitsVM(null);
     }
-  }
+  }, [setIsFiltered, setFruitsVM])
 
 
   return (
@@ -280,3 +280,4 @@ export const App = () => {
     </div>
   )
 }
+
