@@ -1,68 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './AddFruitModal.css';
 
-/*
-export class AddFruitModal extends Component {
-    static propTypes = {
-        onAddClicked: PropTypes.func,
-        onEditItemClick: PropTypes.func,
-        onCloseAddFruitModalClick: PropTypes.func,
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: props.fruit?.name || '',
-            category: props.fruit?.category || '',
-            price: props.fruit?.price || '',
-        }
-    }
-
-    render () {
-        return(
-            <div className='modalForm'>
-                <form onSubmit = {() => {
-                    this.props.fruit?.id ?
-                    this.props.onEditItemClick({...this.state, id: this.props.fruit.id}) :
-                    this.props.onAddItemClick(this.state)
-                    }}>
-                    <p>Name:</p>
-                    <input value = { this.state.name } onChange = {( event ) => this.setState ({ name: event.target.value })}/>
-                    <p>Category:</p>
-                    <input value = { this.state.category } onChange = {( event ) => this.setState ({ category: event.target.value })}/>
-                    <p>Price:</p>
-                    <input value = { this.state.price } onChange = {( event ) => this.setState ({ price: event.target.value })}/>
-                    <button>{ this.props.fruit?.id ? 'Edit' : 'Add' }</button>
-                    <button onClick={this.props.onCloseAddFruitModalClick}>Close</button>
-                </form>
-            </div>
-        )
-    }
-}
-*/
-
-
-
 export const AddFruitModal = (props) => {
-    const [name, setName] = useState({
-        name: props.fruit?.name || '',
-        category: props.fruit?.category || '',
-        price: props.fruit?.price || '',
-    });
+
+    const [editName, setEditName] = useState(props.fruit?.name || '');
+    const onEditItemName = useCallback((event) => {
+        setEditName(event.target.value)
+    }, [setEditName])
+
+    const [editCategory, setEditCategory] = useState( props.fruit?.category || '');
+    const onEditItemCategory = useCallback((event) => {
+        setEditCategory(event.target.value)
+    }, [setEditCategory])
+
+    const [editPrice, setEditPrice] = useState( props.fruit?.price || '');
+    const onEditItemPrice = useCallback((event) => {
+        setEditPrice(event.target.value)
+    }, [setEditPrice])
 
     return(
         <div className='modalForm'>
             <form onSubmit = {() => {
                 props.fruit?.id ?
-                props.onEditItemClick({...name, id: props.fruit.id}) :
-                props.onAddItemClick(name)
+                props.onEditItemClick({name: editName, category: editCategory, price: editPrice, id: props.fruit.id}) :
+                props.onAddItemClick({name: editName, category: editCategory, price: editPrice})
                 }}>
+
                 <p>Name:</p>
-                <input value = { name.name } onChange = {( event ) => setName ( { name: event.target.value } )}/>
+                <input value = { editName } onChange = {onEditItemName}/>
                 <p>Category:</p>
-                <input value = { name.category } onChange = {( event ) => setName ( { category: event.target.value } )}/>
+                <input value = { editCategory } onChange = {onEditItemCategory}/>
                 <p>Price:</p>
-                <input value = { name.price } onChange = {( event ) => setName ( { price: event.target.value } )}/>
+                <input value = { editPrice } onChange = {onEditItemPrice}/>
                 <button>{ props.fruit?.id ? 'Edit' : 'Add' }</button>
                 <button onClick={props.onCloseAddFruitModalClick}>Close</button>
             </form>
