@@ -2,13 +2,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const ADD_ITEM_ACTION = 'ADD_ITEM_ACTION';
 export const DELETE_ITEM_ACTION = 'DELETE_ITEM_ACTION';
+export const EDIT_ITEM_ACTION = 'EDIT_ITEM_ACTION';
+export const SORT_ITEM_ACTION = 'SORT_ITEM_ACTION';
 
-export const addItemAction = ({ title, category }) => {
+export const addItemAction = ({ title, description, category, price, units }) => {
     return {
         type: ADD_ITEM_ACTION,
         item: {
             title,
+            description,
             category,
+            price,
+            units,
             id: uuidv4(),
         },
     }
@@ -20,3 +25,11 @@ export const deleteItemAction = ({ id }) => {
         id,
     }
 }
+
+export const editItemAction = ({ editItem }) => {
+    return {
+        type: EDIT_ITEM_ACTION,
+        editItem,
+    }
+}
+

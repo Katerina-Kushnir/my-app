@@ -1,0 +1,35 @@
+.clickable {
+    cursor: pointer;
+    color: rgb(0, 0, 182);
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px 10px;
+    background-color: rgb(247, 247, 247);
+}
+
+td:nth-child(6),
+td:nth-child(7) {
+    border:none;
+    background-color:white;
+}
+
+td:nth-child(4) {
+    text-align: center;
+}
+
+td button.delete {
+    background-color: rgb(241, 98, 3);
+    cursor: pointer;
+}
+
+td button.edit {
+    background-color: rgb(59, 209, 0);
+    cursor: pointer;
+}
+
+table {
+    border-spacing: 0;
+    margin: 20px;
+}
