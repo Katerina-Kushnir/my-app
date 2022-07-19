@@ -1,4 +1,4 @@
-import { ADD_ITEM_ACTION, DELETE_ITEM_ACTION, EDIT_ITEM_ACTION, SORT_ITEM_ACTION } from './actions';
+import { ADD_ITEM_ACTION, DELETE_ITEM_ACTION, EDIT_ITEM_ACTION, SORT_ITEM_ACTION, TOTAL_PRICE_ITEM_ACTION } from './actions';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -6,102 +6,103 @@ const initialState = {
     items: [
         {
             id: uuidv4(),
-            title: 'яблоко',
-            description: 'blabla',
-            price: 20,
+            title: 'Холодильник',
+            description: 'Холодильник SAMSUNG RB38T600FSA/UA',
+            price: 20500,
             categoryId: 0,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'банан',
-            description: 'blabla',
-            price: 20,
+            title: 'Пральна машина',
+            description: 'Пральна машина INDESIT OMTWSA 61052 W UA',
+            price: 12000,
             categoryId: 0,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'лайм',
-            description: 'blabla2',
-            price: 90,
+            title: 'Газонокосарка',
+            description: 'Газонокосарка Gartner ELM-1232 BL (845269)',
+            price: 3950,
             categoryId: 2,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'клубника',
-            description: 'blabla4',
-            price: 110,
+            title: 'Конструктор',
+            description: 'Конструктор LEGO DUPLO Classic Коробка з кубиками 65 деталей',
+            price: 1210,
             categoryId: 3,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'помидор',
-            description: 'blabla1',
-            price: 170,
+            title: 'Настільна гра',
+            description: 'Настільна гра Spin Master Games L.O.L. Surprise Розкрий мій секрет',
+            price: 670,
             categoryId: 3,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'апельсин',
-            description: 'blabla2',
-            price: 45,
+            title: 'Велосипед',
+            description: 'Велосипед CORRADO Fortun 26" 21" 2019',
+            price: 11999,
             categoryId: 1,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'киви',
-            description: 'blabla4',
-            price: 60,
+            title: 'Набір інструментів для садових рослин',
+            description: 'Набір інструментів для садових рослин Gardena Balcony Basics',
+            price: 1060,
             categoryId: 2,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'огурец',
-            description: 'blabla1',
-            price: 80,
+            title: 'Блендер',
+            description: 'Блендер BOSCH MSM66130',
+            price: 1800,
             categoryId: 0,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'перец',
-            description: 'blabla1',
-            price: 120,
+            title: 'Самокат',
+            description: 'Самокат Miqilong Cart',
+            price: 1620,
             categoryId: 3,
             units: '1',
         },
         {
             id: uuidv4(),
-            title: 'гречка',
-            description: 'blabla5',
-            price: 45,
+            title: 'Зрошувач для поливу',
+            description: 'Зрошувач Water Sprinklers 360 для поливу 360°',
+            price: 345,
             categoryId: 2,
             units: '1',
         },
         {
             id: uuidv4 (),
-            title: 'рис',
-            description: 'blabla5',
-            price: 40,
+            title: 'Мяч для фитнесу',
+            description: 'Мяч для фитнесу PowerPlay 4003 65 см',
+            price: 640,
             categoryId: 1,
             units: '1',
         },
         {
             id: uuidv4 (),
-            title: 'булгур',
-            description: 'blabla',
-            price: 35,
+            title: 'Праска',
+            description: 'Праска PHILIPS Azur GC4909/60',
+            price: 3500,
             categoryId: 0,
             units: '1',
         },
     ],
-    sortItems: []
+    sortItems: [],
+    TotalPrice:0,
 }
 
 export const itemsReducer = (state = initialState, action) => {
@@ -118,7 +119,13 @@ export const itemsReducer = (state = initialState, action) => {
             return {  
             };
         case SORT_ITEM_ACTION:
-            return {...state, sortItems: state.items.slice().sort((a, b) => a.title > b.title ? 1 : -1)}
+            return {
+                ...state, sortItems: state.items.slice().sort((a, b) => a.title > b.title ? 1 : -1)
+            };
+        case TOTAL_PRICE_ITEM_ACTION:
+            return {
+                TotalPrice: state.items.reduce((acc, items) => acc + (items.price * items.units))
+            };
         default:
             return state;
     }

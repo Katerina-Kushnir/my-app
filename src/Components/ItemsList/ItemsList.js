@@ -8,6 +8,7 @@ import { selectItems } from '../../Store/Items/selectors';
 import { selectCategories } from '../../Store/Category/selectors'
 import { deleteItemAction } from '../../Store/Items/actions';
 import './ItemsList.css'
+import { TotalPrice } from '../TotalPrice/TotalPrice';
 
 export const ItemsList = () => {
     const navigate = useNavigate();
@@ -60,30 +61,34 @@ export const ItemsList = () => {
     }, [setItemsSort, items])
 
     useEffect(() => {
-        // if (sortType) {
-            
-        // }
         console.log("sortType: ", sortType)
-    })
+    },[navigate, sortType])
+
     
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <th>category</th>
-                    <th>description</th>
-                    <th>title</th>
-                    <th onClick={() => onSort('PRICE')}>price</th>
-                    <th>units</th>
-                </tr>
-                {itemsToDisplay.map((item) => <ItemComponent
-                    onDeleteClicked={onDeleteElement}
-                    onCategoryClicked={onCategoryClicked}
-                    onEditClicked={onEditElement}
-                    key={item.id}
-                    item={item}
-                />)}
-            </tbody>
-        </table>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Категорія товару</th>
+                        <th>Назва товару</th>
+                        <th>Опис товару</th>
+                        <th onClick={() => onSort('PRICE')}>Ціна</th>
+                        <th>Кількість</th>
+                    </tr>
+                    {itemsToDisplay.map((item) => <ItemComponent
+                        onDeleteClicked={onDeleteElement}
+                        onCategoryClicked={onCategoryClicked}
+                        onEditClicked={onEditElement}
+                        key={item.id}
+                        item={item}
+                    />)}                
+                </tbody>
+            </table>
+
+        <span>Total ${TotalPrice}</span>
+
+        </div>
     )
+
 }

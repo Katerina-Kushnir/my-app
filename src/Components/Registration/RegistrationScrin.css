@@ -1,0 +1,19 @@
+div.button-log {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+.registration-form1 {
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+.registration-form1 input {
+    height: 20px;
+    border-radius: 6px;
+    padding-left: 16px;
+}

@@ -1,24 +1,24 @@
 import { ADD_CATEGORY_ACTION, DELETE_CATEGORY_ACTION, UPDATE_CATEGORY_ACTION } from './actions';
 
 const initialState = {
-    categories: {
-        0: {
+    categories: [
+        {
             id: 0,
-            name: 'фрукты'
+            name: 'Побутова техніка'
         },
-        1: {
+        {
             id: 1,
-            name: 'овощи'
+            name: 'Товари для спорту'
         },
-        2: {
+        {
             id: 2,
-            name: 'крупы'
+            name: 'Товари для саду та огороду'
         },
-        3: {
+        {
             id: 3,
-            name: 'напитки'
+            name: 'Дитячі товари'
         }
-    }
+    ]
 }
 
 export const categoriesReducer = (state = initialState, action) => {

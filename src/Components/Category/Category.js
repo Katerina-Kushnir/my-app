@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react"
+import Button from '@mui/material/Button';
+import './Category.css';
 
 export const Category = ({ cat, onSave = () => { } }) => {
     const [categoryName, setCategoryName] = useState(cat.name);
@@ -16,9 +18,9 @@ export const Category = ({ cat, onSave = () => { } }) => {
 
     return (
         <tr>
-            <td>{cat.id}</td>
+            {/* <td>{cat.id}</td> */}
             <td><input value={categoryName} onChange={onCategoryNameChange} /></td>
-            <td><button onClick={onSaveClicked}>Save</button></td>
+            <td><Button onClick={onSaveClicked} variant="outlined">Зберегти</Button></td>
         </tr>
     )
 }

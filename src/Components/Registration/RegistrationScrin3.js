@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { updateUserModalAction } from "../../Store/App/actions";
 import { setIsRegistered } from '../../Store/App/actions';
 import { selectUserModal } from '../../Store/App/selectors';
+import './RegistrationScrin.css'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export const RegistrationScrin3 = () => {
 
@@ -42,16 +45,21 @@ export const RegistrationScrin3 = () => {
         dispatch(setIsRegistered(true))
     }, [dispatch, name, lastname, age])
     return (
-        <div>
-            <p>name:</p>
-            <input value={name} onChange={onNameChange} />
-            <p>lastname:</p>
+        <div  className='registration-form1'>
+            <TextField id="outlined-basic" label="Ім'я" variant="outlined" value={name} onChange={onNameChange} />
+            <br />
+            <TextField id="outlined-basic" label="Прізвище" variant="outlined" value={lastname} onChange={onLastnameChange} />
+            <br />
+            <TextField id="outlined-basic" label="Вік" variant="outlined" value={age} onChange={onAgeChange} type="number"/>
+            {/* <p>name:</p>
+            <input value={name} onChange={onNameChange} /> */}
+            {/* <p>lastname:</p>
             <input value={lastname} onChange={onLastnameChange}/>
             <p>Age:</p>
-            <input value={age} onChange={onAgeChange}/>
+            <input value={age} onChange={onAgeChange}/> */}
             <br/>
-            <br/>
-            <button onClick={onContinuePressed}>Continue</button>
+            <Button variant="contained" onClick={onContinuePressed}>Продовжити</Button>
+            {/* <button onClick={onContinuePressed}>Continue</button> */}
         </div>
     )
 }

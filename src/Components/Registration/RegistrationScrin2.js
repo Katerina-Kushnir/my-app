@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { updateUserModalAction } from "../../Store/App/actions";
 import { selectUserModal } from "../../Store/App/selectors";
+import './RegistrationScrin.css'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export const RegistrationScrin2 = () => {
 
@@ -31,14 +34,12 @@ export const RegistrationScrin2 = () => {
         navigate('/register/userdata')
     }, [dispatch, navigate, email, password])
     return (
-        <div>
-            <p>Email:</p>
-            <input value={email} onChange={onEmailChange} />
-            <p>Password:</p>
-            <input value={password} onChange={onPasswordChange}/>
+        <div className='registration-form1'>
+            <TextField id="outlined-basic" label="Email" variant="outlined" value={email} onChange={onEmailChange} type="email" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" />
             <br/>
+            <TextField id="filled-password-input" label="Пароль" type="password" autoComplete="current-password" variant="outlined" onChange={onPasswordChange}/>
             <br/>
-            <button onClick={onContinuePressed}>Continue</button>
+            <Button variant="contained" onClick={onContinuePressed}>Продовжити</Button>
         </div>
     )
 }

@@ -19,13 +19,12 @@ export const SortButton = () => {
         }
     }, [dispatch, sortType])
 
-    // let sortItems = 
 
     return (
         <div>
             <button 
                 onClick={() => onSort(SORT_ITEM_ACTION)}
-            >Sort by title
+            >Сортувати по назві
             </button>
 
         </div>

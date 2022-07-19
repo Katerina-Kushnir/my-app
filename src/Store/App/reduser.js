@@ -7,6 +7,7 @@ const initialState = {
     isAddItemModalVisible: false,
     isRegistered: false,
     user: {},
+    TotalPrice:0,
 }
 export const appReduser = (state = initialState, action) => {
     switch (action.type) {

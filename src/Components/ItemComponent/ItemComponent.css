@@ -4,9 +4,11 @@
 }
 
 td {
-    border: 1px solid black;
+    border: none;
+    border-bottom: 1px solid gray;
     padding: 5px 10px;
-    background-color: rgb(247, 247, 247);
+    background-color: #fff;
+    text-align: center;
 }
 
 td:nth-child(6),
@@ -15,21 +17,12 @@ td:nth-child(7) {
     background-color:white;
 }
 
-td:nth-child(4) {
+td:nth-child(4),
+td:nth-child(5) {
     text-align: center;
-}
-
-td button.delete {
-    background-color: rgb(241, 98, 3);
-    cursor: pointer;
-}
-
-td button.edit {
-    background-color: rgb(59, 209, 0);
-    cursor: pointer;
 }
 
 table {
     border-spacing: 0;
-    margin: 20px;
+    margin: 30px auto;
 }

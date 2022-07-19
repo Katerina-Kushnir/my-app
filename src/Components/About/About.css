@@ -1,0 +1,7 @@
+.about {
+    padding: 0 20px;
+}
+.about p:nth-child(even) {
+    font-style: italic;
+    font-weight: 600;
+}
