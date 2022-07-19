@@ -7,7 +7,7 @@ export const About = () => {
   const userModal = useSelector(selectUserModal);
   return (
     <div className='about'>
-      <p>Ім'я:</p>
+      <p>Імя:</p>
       <p>{userModal.name}</p>
       <p>Прізвище:</p>
       <p>{userModal.lastname}</p>

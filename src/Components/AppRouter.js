@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { ItemsList } from './ItemsList/ItemsList';
