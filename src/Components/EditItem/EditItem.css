@@ -1,0 +1,11 @@
+.edit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 270px;
+    margin: 20px auto;
+}
+.edit-item-button {
+    display: flex;
+    justify-content: space-between;
+}

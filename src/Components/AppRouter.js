@@ -4,11 +4,10 @@ import { useCallback } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { ItemsList } from './ItemsList/ItemsList';
 import { AddItemModal } from './AddItemModal/AddItemModal';
+import { EditItem } from './EditItem/EditItem';
 import { About } from './About/About';
-import { CategoriesList } from './Category/CategoriesList';
 import { PageNotFound } from './PageNotFound/PageNotFound';
 import { setIsRegistered } from '../Store/App/actions';
-import { SortButton } from './SortButton/SortButton';
 import Button from '@mui/material/Button';
 
 const styles = {
@@ -36,8 +35,6 @@ export const AppRouter = () => {
           <Link style={styles.linkItem} to="/">Список товарів</Link>
           <Link style={styles.linkItem} to="/add">Додати товар</Link>
           <Link style={styles.linkItem} to="/about">Про Вас</Link>
-          <Link style={styles.linkItem} to="/categories">Категорії</Link>
-          <Link style={styles.linkItem} to="/sort">Сортування</Link>
         </div>
         <Button variant="outlined" color="error" onClick={onLogOutClicked}>
           Вийти
@@ -46,11 +43,8 @@ export const AppRouter = () => {
       <Routes>
         <Route path='/*' element={<ItemsList />} />
         <Route path='/add' element={<AddItemModal />} />
-        <Route path='/categories' element={<CategoriesList />} />
-        <Route path='/items/:categoryId' element={<ItemsList />} />
+        <Route path='/edit/:itemId' element={<EditItem />} />
         <Route path='/about' element={<About />} />
-        <Route path='/sort' element={<SortButton />} />
-        <Route path=':sortType' element={<SortButton />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>     
     </div>

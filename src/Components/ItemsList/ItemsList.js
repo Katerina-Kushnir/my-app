@@ -1,93 +1,71 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useCallback  } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import { ItemComponent } from "../ItemComponent/ItemComponent";
-import { selectItems } from '../../Store/Items/selectors';
-import { selectCategories } from '../../Store/Category/selectors'
-import { deleteItemAction } from '../../Store/Items/actions';
+import { selectItems, selectIsItemsLoading, selectItemsError, selectRemovingItems } from '../../Store/Items/selectors';
+import { fetchItems, deleteItemAction } from '../../Store/Items/thunks';
+import { showEditItemModalAction } from '../../Store/App/actions'; 
 import './ItemsList.css'
-import { TotalPrice } from '../TotalPrice/TotalPrice';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
+const styles = {
+    progress: { 
+        display: 'flex',
+        margin: 4,
+    }
+}
 export const ItemsList = () => {
     const navigate = useNavigate();
     const items = useSelector(selectItems);
-    const categories = useSelector(selectCategories);
-    const { categoryId } = useParams();
-    const categoryIdInt = parseInt(categoryId);
-    const [itemsSort, setItemsSort] = useState([]);
-
-    const {sortType} = useParams;
-    const itemsToDisplay = useMemo(() => {
-        let returnItems = [];
-        if (categoryId) {
-            returnItems = items.filter((i) => {
-                console.log(i.categoryId)
-                console.log(categoryId )
-                return i.categoryId === categoryIdInt 
-                
-            });
-        } else {
-            returnItems = items;
-        }
-        console.log(returnItems)
-        return returnItems.map((item) => {
-            return {
-                ...item,
-                category: categories[item.categoryId].name,
-            }
-        })
-    }, [items, categoryId, categories])
+    const isItemsLoading = useSelector(selectIsItemsLoading);
+    const itemsError = useSelector(selectItemsError);
+    const removingItems = useSelector(selectRemovingItems);
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchItems());
+    }, [dispatch])
+
     const onDeleteElement = useCallback((id) =>
-        dispatch(deleteItemAction({ id })),
-        [dispatch]
+        dispatch(deleteItemAction(id)),
+        [dispatch],
     )
 
-    const onCategoryClicked = useCallback((category) => {
-        navigate('/items/' + category)
-    }, [navigate])
+    const onEditElement = useCallback((id) => {
+        dispatch(showEditItemModalAction(id)),
+        navigate('/edit/' + id)
+    }, [dispatch, navigate])
 
-    const onEditElement = useCallback((items) => {
-        navigate('/element' + items)
-    }, [navigate])
+    if (itemsError) {
+        return (
+            <div>{itemsError}</div>
+        )
+    }
 
-    const onSort = useCallback((type) => {
-        navigate(type)
-        // setItemsSort( [...items].sort((a, b) => a[value] > b[value] ? 1 : -1) );
-    }, [setItemsSort, items])
+    if (isItemsLoading) {
+        return (
+            <Box sx={styles.progress}>
+                <CircularProgress />
+            </Box>
+        )
+    }
 
-    useEffect(() => {
-        console.log("sortType: ", sortType)
-    },[navigate, sortType])
-
-    
     return (
         <div>
             <table>
                 <tbody>
-                    <tr>
-                        <th>Категорія товару</th>
-                        <th>Назва товару</th>
-                        <th>Опис товару</th>
-                        <th onClick={() => onSort('PRICE')}>Ціна</th>
-                        <th>Кількість</th>
-                    </tr>
-                    {itemsToDisplay.map((item) => <ItemComponent
+                    {items.map((item) => <ItemComponent
                         onDeleteClicked={onDeleteElement}
-                        onCategoryClicked={onCategoryClicked}
                         onEditClicked={onEditElement}
                         key={item.id}
                         item={item}
+                        isRemoving={removingItems[item.id]}
                     />)}                
                 </tbody>
             </table>
-
-        <span>Total ${TotalPrice}</span>
-
         </div>
     )
 

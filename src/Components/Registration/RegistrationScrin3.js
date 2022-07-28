@@ -51,15 +51,8 @@ export const RegistrationScrin3 = () => {
             <TextField id="outlined-basic" label="Прізвище" variant="outlined" value={lastname} onChange={onLastnameChange} />
             <br />
             <TextField id="outlined-basic" label="Вік" variant="outlined" value={age} onChange={onAgeChange} type="number"/>
-            {/* <p>name:</p>
-            <input value={name} onChange={onNameChange} /> */}
-            {/* <p>lastname:</p>
-            <input value={lastname} onChange={onLastnameChange}/>
-            <p>Age:</p>
-            <input value={age} onChange={onAgeChange}/> */}
             <br/>
             <Button variant="contained" onClick={onContinuePressed}>Продовжити</Button>
-            {/* <button onClick={onContinuePressed}>Continue</button> */}
         </div>
     )
 }
